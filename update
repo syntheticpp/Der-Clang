@@ -1,0 +1,20 @@
+#!/bin/sh
+
+function check_link {
+    if [ ! -d "$2" ]; then
+        echo Creating symbolic link $2 to $PWD/$1
+        ln  -s $PWD/$1 $2
+    fi
+}
+
+check_link clang        llvm/tools/clang
+check_link compiler-rt  llvm/projects/compiler-rt
+
+branch=`git symbolic-ref --short -q HEAD`
+
+git submodule foreach git fetch
+git submodule foreach git checkout $branch
+git submodule foreach git reset origin/$branch
+git submodule foreach git status
+
+git status
