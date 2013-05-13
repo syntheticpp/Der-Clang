@@ -12,6 +12,9 @@ check_link compiler-rt  llvm/projects/compiler-rt
 
 branch=`git symbolic-ref --short -q HEAD`
 
+git submodule init
+git submodule update
+
 git submodule foreach git fetch
 git submodule foreach git checkout $branch
 git submodule foreach git reset origin/$branch --hard
