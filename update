@@ -14,7 +14,8 @@ branch=`git symbolic-ref --short -q HEAD`
 
 git submodule foreach git fetch
 git submodule foreach git checkout $branch
-git submodule foreach git reset origin/$branch
+git submodule foreach git reset origin/$branch --hard
+git submodule foreach git clean -df
 git submodule foreach git status
 
 git status
