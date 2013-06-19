@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function check_link {
     if [ ! -d "$2" ]; then
@@ -10,11 +10,16 @@ function check_link {
 check_link clang        llvm/tools/clang
 check_link compiler-rt  llvm/projects/compiler-rt
 
-branch=`git symbolic-ref --short -q HEAD`
+#branch=`git symbolic-ref --short -q HEAD`
+branch=master
+
+git submodule init
+git submodule update
 
 git submodule foreach git fetch
 git submodule foreach git checkout $branch
-git submodule foreach git reset origin/$branch
+git submodule foreach git reset origin/$branch --hard
+git submodule foreach git clean -df
 git submodule foreach git status
 
 git status
