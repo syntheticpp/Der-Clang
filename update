@@ -1,25 +1,36 @@
 #!/bin/bash
 
+msys=`echo $MSYSTEM`
+
 function check_link {
-    if [ ! -d "$2" ]; then
-        echo Creating symbolic link $2 to $PWD/$1
-        ln  -s $PWD/$1 $2
+    if [ "$msys" = "MINGW32" ]; then
+        echo "Copying $1/* to $2"
+        mkdir -p $2
+        cp -fR $PWD/$1/* $2
+    else
+        if [ ! -d "$2" ]; then
+            echo "Creating symbolic link $2 to $PWD/$1"
+            ln  -s $PWD/$1 $2
+        fi
     fi
 }
 
 #branch=`git symbolic-ref --short -q HEAD`
 branch=release_34
 
-git submodule init
+git submodule -q init
 git submodule update
 
-git submodule foreach git fetch
-git submodule foreach git checkout $branch
-git submodule foreach git reset origin/$branch --hard
-git submodule foreach git clean -df
-git submodule foreach git status
+git submodule -q foreach git fetch
+git submodule -q foreach git checkout $branch
+git submodule -q foreach git reset origin/$branch --hard -q
+#git submodule -q foreach git clean -df 
 
 check_link clang        llvm/tools/clang
 check_link compiler-rt  llvm/projects/compiler-rt
 
-git status
+echo 
+echo "Point configure or cmake to directory 'llvm'"
+echo "Release build: by default with configure, pass -DCMAKE_BUILD_TYPE=Release to cmake"
+
+  
