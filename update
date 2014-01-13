@@ -7,9 +7,6 @@ function check_link {
     fi
 }
 
-check_link clang        llvm/tools/clang
-check_link compiler-rt  llvm/projects/compiler-rt
-
 #branch=`git symbolic-ref --short -q HEAD`
 branch=release_34
 
@@ -21,5 +18,8 @@ git submodule foreach git checkout $branch
 git submodule foreach git reset origin/$branch --hard
 git submodule foreach git clean -df
 git submodule foreach git status
+
+check_link clang        llvm/tools/clang
+check_link compiler-rt  llvm/projects/compiler-rt
 
 git status
