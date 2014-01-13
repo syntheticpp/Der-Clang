@@ -1,0 +1,31 @@
+Der-Clang
+=========
+
+Submodules to build the Clang compiler
+
+
+Building on Linux:
+
+  cd Der-Clang
+  ./update
+  mkdir build
+  cd build
+  ./configure/llvm
+  make -j9
+  sudo make install
+
+
+Building on Windows:
+
+Call in the msysgit bash
+
+  ./update
+
+Open a Visual Studio command prompt and use cmake
+
+  cd Der-Clang
+  mkdir build
+  cd build
+  cmake ../llvm
+
+Open the .sln file and build.
