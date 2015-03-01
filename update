@@ -10,13 +10,13 @@ function check_link {
     else
         if [ ! -d "$2" ]; then
             echo "Creating symbolic link $2 to $PWD/$1"
-            ln  -s $PWD/$1 $2
+            ln  -sf $PWD/$1 $2
         fi
     fi
 }
 
 #branch=`git symbolic-ref --short -q HEAD`
-branch=release_34
+branch=release_36
 
 git submodule -q init
 git submodule update
@@ -33,4 +33,3 @@ echo
 echo "Point configure or cmake to directory 'llvm'"
 echo "Release build: by default with configure, pass -DCMAKE_BUILD_TYPE=Release to cmake"
 
-  
