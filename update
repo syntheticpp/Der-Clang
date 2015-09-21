@@ -16,7 +16,7 @@ function check_link {
 }
 
 #branch=`git symbolic-ref --short -q HEAD`
-branch=release_36
+branch=release_37
 
 git submodule -q init
 git submodule update
